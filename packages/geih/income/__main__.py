@@ -176,7 +176,7 @@ def main(args):
             "seed_divipola",
         ],
     )
-    return prettify_results(
+    result = prettify_results(
         income=int(income),
         zone=int(zone),
         *get_income_quantiles(
@@ -186,3 +186,6 @@ def main(args):
             *get_tables(metadata, engine),
         ),
     )
+    return {
+		"body": result
+	}

@@ -3,14 +3,20 @@ environment: {}
 packages:
     - name: geih
       shared: false
-      environment: {}
+      environment:
+        PROTOCOL: "${PROTOCOL}"
+        USER: "${USER}"
+        PASSWORD: "${PASSWORD}"
+        HOST: "${HOST}"
+        PORT: "${PORT}"
+        DB: "${DB}"
       parameters: {}
       annotations: {}
       functions:
         - name: income
           binary: false
           main: ""
-          runtime: python:default
+          runtime: python:3.11
           web: true
           webSecure: false
           parameters: {}
