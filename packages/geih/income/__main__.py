@@ -155,7 +155,7 @@ def main(args):
     income = args.get("income", -1)
     department = args.get("department", "unknown")
     zone = args.get("zone", "unknown")
-    if income < 0 or department == "unknown" or zone == "unknown":
+    if int(income) < 0 or department == "unknown" or zone == "unknown":
         return {"error": "Please provide income, department, and zone."}
     # get connection parameters from environment variables
     protocol = os.environ['PROTOCOL']
@@ -177,12 +177,12 @@ def main(args):
         ],
     )
     return prettify_results(
-        income=income,
-        zone=zone,
+        income=int(income),
+        zone=int(zone),
         *get_income_quantiles(
-            income=income,
+            income=int(income),
             department=department,
-            zone=zone,
+            zone=int(zone),
             *get_tables(metadata, engine),
         ),
     )
