@@ -8,4 +8,4 @@ virtualenv --without-pip virtualenv
 # pip install -r requirements.txt --target virtualenv/lib/python3.9/site-packages
 
 # Uncomment if you're using the Python 3.11 runtime
-pip install psycopg2 SQLAlchemy --target virtualenv/lib/python3.11/site-packages
+pip install -r requirements.txt --target virtualenv/lib/python3.11/site-packages
