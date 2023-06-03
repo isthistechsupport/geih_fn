@@ -30,7 +30,7 @@ def get_tables(metadata: MetaData, engine: Engine):
 def get_income_quantiles(
     income: int,
     department: str,
-    zone: str,
+    zone: int,
     income_table: Table,
     income_dept_table: Table,
     income_dept_zone_table: Table,
