@@ -72,30 +72,6 @@ def get_income_quantiles(
     )
 
 
-def prettify_results(
-    income: int,
-    department: str,
-    zone: int,
-    quantile_below: int,
-    quantile_above: int,
-    dept_quantile_below: int,
-    dept_quantile_above: int,
-    dept_zone_quantile_below: int,
-    dept_zone_quantile_above: int,
-):
-    return {
-        "income": income,
-        "department": department,
-        "zone": zone,
-        "quantile_below": quantile_below,
-        "quantile_above": quantile_above,
-        "dept_quantile_below": dept_quantile_below,
-        "dept_quantile_above": dept_quantile_above,
-        "dept_zone_quantile_below": dept_zone_quantile_below,
-        "dept_zone_quantile_above": dept_zone_quantile_above
-    }
-
-
 def main(args):
     income = args.get("income", -1)
     department = args.get("department", "unknown")
@@ -121,7 +97,7 @@ def main(args):
         only=[
             "fact_income_permille",
             "fact_income_permille_dept",
-            "fact_income_permille_dept_zone"
+            "fact_income_permille_dept_zone",
         ],
     )
     (
@@ -145,15 +121,12 @@ def main(args):
         income_dept_zone_table=income_dept_zone_table,
         engine=engine,
     )
-    result = prettify_results(
-        income=int(income),
-        department=department,
-        zone=int(zone),
-        quantile_below=quantile_below,
-        quantile_above=quantile_above,
-        dept_quantile_below=dept_quantile_below,
-        dept_quantile_above=dept_quantile_above,
-        dept_zone_quantile_below=dept_zone_quantile_below,
-        dept_zone_quantile_above=dept_zone_quantile_above,
-    )
+    result = {
+        "quantile_below": quantile_below,
+        "quantile_above": quantile_above,
+        "dept_quantile_below": dept_quantile_below,
+        "dept_quantile_above": dept_quantile_above,
+        "dept_zone_quantile_below": dept_zone_quantile_below,
+        "dept_zone_quantile_above": dept_zone_quantile_above,
+    }
     return {"body": result}
