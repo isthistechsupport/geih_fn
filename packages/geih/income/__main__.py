@@ -122,11 +122,11 @@ def main(args):
         engine=engine,
     )
     result = {
-        "quantile_below": quantile_below,
-        "quantile_above": quantile_above,
-        "dept_quantile_below": dept_quantile_below,
-        "dept_quantile_above": dept_quantile_above,
-        "dept_zone_quantile_below": dept_zone_quantile_below,
-        "dept_zone_quantile_above": dept_zone_quantile_above,
+        "quantileBelow": quantile_below,
+        "quantileAbove": quantile_above,
+        "deptQuantileBelow": dept_quantile_below,
+        "deptQuantileAbove": dept_quantile_above,
+        "deptZoneQuantileBelow": dept_zone_quantile_below,
+        "deptZoneQuantileAbove": dept_zone_quantile_above,
     }
     return {"body": result}
