@@ -4,14 +4,14 @@ packages:
     - name: geih
       shared: false
       environment:
-        PROTOCOL: "${PROTOCOL}"
-        DRIVER: "${DRIVER}"
-        USER: "${USER}"
-        PASSWORD: "${PASSWORD}"
-        HOST: "${HOST}"
-        PORT: "${PORT}"
-        DB: "${DB}"
-        SSLMODE: "${SSLMODE}"
+        DBPROTOCOL: "${DBPROTOCOL}"
+        DBDRIVER: "${DBDRIVER}"
+        DBUSER: "${DBUSER}"
+        DBPASSWORD: "${DBPASSWORD}"
+        DBHOST: "${DBHOST}"
+        DBPORT: "${DBPORT}"
+        DBNAME: "${DBNAME}"
+        DBSSLMODE: "${DBSSLMODE}"
       parameters: {}
       annotations: {}
       functions:
