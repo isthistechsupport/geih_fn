@@ -63,12 +63,12 @@ def get_income_quantiles(
             .where(income_dept_zone_table.c.zone == zone)
         ).scalar_one()
     return (
-        int(quantile_below),
-        int(quantile_above),
-        int(dept_quantile_below),
-        int(dept_quantile_above),
-        int(dept_zone_quantile_below),
-        int(dept_zone_quantile_above),
+        quantile_below,
+        quantile_above,
+        dept_quantile_below,
+        dept_quantile_above,
+        dept_zone_quantile_below,
+        dept_zone_quantile_above,
     )
 
 
