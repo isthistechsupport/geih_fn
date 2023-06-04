@@ -108,7 +108,7 @@ def prettify_results(
     else:
         zone_str = "rural"
 
-    result["income"] = f"Tienes un ingreso de ${income:,} pesos mensuales."
+    result["income"] = f"Tienes un ingreso de ${income:,} de pesos mensuales."
     # National income quantiles
     result[
         "national_income_1"
