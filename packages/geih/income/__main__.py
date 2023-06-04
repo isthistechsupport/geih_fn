@@ -73,9 +73,12 @@ def get_income_quantiles(
 
 
 def main(args):
-    income = args.get("income", -1)
-    department = args.get("department", "unknown")
-    zone = args.get("zone", -1)
+    try:
+        income = args.get("income", -1)
+        department = args.get("department", "unknown")
+        zone = args.get("zone", -1)
+    except Exception as e:
+        return {"error": f"Error: {e}"}
     if int(income) < 0 or department == "unknown" or int(zone) == -1:
         return {"error": "Please provide income, department, and zone."}
     # get connection parameters from environment variables
