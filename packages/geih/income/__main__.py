@@ -36,37 +36,37 @@ def get_income_quantiles(
             select(func.coalesce(func.max(income_table.c.quantile), 0)).where(
                 income_table.c.income < income
             )
-        )[0].quantile
+        ).scalar_one()
         quantile_above = conn.execute(
             select(func.min(income_table.c.quantile)).where(
                 income_table.c.income > income
             )
-        )[0].quantile
+        ).scalar_one()
         dept_quantile_below = conn.execute(
             select(func.coalesce(func.max(income_dept_table.c.quantile), 0))
             .where(income_dept_table.c.income < income)
             .where(income_dept_table.c.department == department)
-        )[0].quantile
+        ).scalar_one()
         dept_quantile_above = conn.execute(
             select(func.min(income_dept_table.c.quantile))
             .where(income_dept_table.c.income > income)
             .where(income_dept_table.c.department == department)
-        )[0].quantile
+        ).scalar_one()
         dept_zone_quantile_below = conn.execute(
             select(func.coalesce(func.max(income_dept_zone_table.c.quantile), 0))
             .where(income_dept_zone_table.c.income < income)
             .where(income_dept_zone_table.c.department == department)
             .where(income_dept_zone_table.c.zone == zone)
-        )[0].quantile
+        ).scalar_one()
         dept_zone_quantile_above = conn.execute(
             select(func.min(income_dept_zone_table.c.quantile))
             .where(income_dept_zone_table.c.income > income)
             .where(income_dept_zone_table.c.department == department)
             .where(income_dept_zone_table.c.zone == zone)
-        )[0].quantile
+        ).scalar_one()
         dept_str = conn.execute(
             select(divipola_table.c.name).where(divipola_table.c.code == department)
-        )[0].name
+        ).scalar_one()
     return (
         str(dept_str),
         int(quantile_below),
