@@ -16,7 +16,7 @@ packages:
         - name: income
           binary: false
           main: ""
-          runtime: python:3.9
+          runtime: python:3.11
           web: true
           webSecure: false
           parameters: {}
