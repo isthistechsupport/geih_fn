@@ -1,0 +1,50 @@
+---
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+const { pageTitle } = Astro.props;
+const { pageDescription } = Astro.props;
+---
+
+<html lang="es" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link
+            href="https://geih.drivero.com.co/index.html"
+            rel="alternate"
+            hreflang="es"
+        />
+        <!-- HTML Meta Tags -->
+        <meta name="description" content={pageDescription} />
+
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="https://geih.drivero.com.co/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content="" />
+
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary" />
+        <meta property="twitter:domain" content="drivero.com.co" />
+        <meta property="twitter:url" content="https://geih.drivero.com.co/" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content="" />
+
+        <!-- Meta Tags Generated via https://opengraph.dev -->
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{pageTitle}</title>
+    </head>
+    <body>
+        <div class="container">
+            <Header />
+            <h1 class="title">{pageTitle}</h1>
+            <slot />
+            <script>
+                import "../scripts/script.js";
+            </script>
+        </div>
+    </body>
+</html>

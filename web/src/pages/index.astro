@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+import Link from "../components/Link.astro";
+import "../styles/global.css";
+const pageTitle = "Salariómetro";
+const pageDescription =
+	"Esta página te indica qué tan alto es tu salario comparado con el resto de Colombia";
+---
+
+<Layout pageTitle={pageTitle} pageDescription={pageDescription}>
+	<div>
+		<p>
+			{pageDescription}
+		</p>
+	</div>
+	<form id="income-form">
+		<div class="input-group">
+			<input
+				type="text"
+				id="income"
+				name="income"
+				placeholder="Ingrese su salario"
+			/>
+			<label for="income" class="input-label">Salario</label>
+		</div>
+		<div class="input-group">
+			<select id="department" name="department">
+				<option value="">Seleccione su departamento</option>
+				<option value="05">Antioquia</option>
+				<option value="08">Atlántico</option>
+				<option value="11">Bogotá, D.C.</option>
+				<option value="13">Bolívar</option>
+				<option value="15">Boyacá</option>
+				<option value="17">Caldas</option>
+				<option value="18">Caquetá</option>
+				<option value="19">Cauca</option>
+				<option value="20">Cesar</option>
+				<option value="23">Córdoba</option>
+				<option value="25">Cundinamarca</option>
+				<option value="27">Chocó</option>
+				<option value="41">Huila</option>
+				<option value="44">La Guajira</option>
+				<option value="47">Magdalena</option>
+				<option value="50">Meta</option>
+				<option value="52">Nariño</option>
+				<option value="54">Norte de Santander</option>
+				<option value="63">Quindío</option>
+				<option value="66">Risaralda</option>
+				<option value="68">Santander</option>
+				<option value="70">Sucre</option>
+				<option value="73">Tolima</option>
+				<option value="76">Valle del Cauca</option>
+				<option value="81">Arauca</option>
+				<option value="85">Casanare</option>
+				<option value="86">Putumayo</option>
+				<option value="88"
+					>Archipiélago de San Andrés, Providencia y Santa Catalina</option
+				>
+				<option value="91">Amazonas</option>
+				<option value="94">Guainía</option>
+				<option value="95">Guaviare</option>
+				<option value="97">Vaupés</option>
+				<option value="99">Vichada</option>
+			</select>
+			<label for="department" class="input-label">Departamento</label>
+		</div>
+		<div class="input-group">
+			<select id="zone" name="zone">
+				<option value="">Seleccione su zona</option>
+				<option value="1">Urbana</option>
+				<option value="2">Rural</option>
+			</select>
+			<label for="zone" class="input-label">Zona</label>
+		</div>
+		<button type="submit" class="button">Calcular</button>
+	</form>
+	<div id="result-container"></div>
+	<Footer>
+		Fuente: Departamento Administrativo Nacional de Estadística: 
+		<Link link="www.dane.gov.co" text="www.dane.gov.co" />.
+		Sitio web diseñado y desarrollado por
+		<Link link="https://drivero.com.co" text="Diego Rivero" />
+		(con algo de ayuda de
+		<Link link="https://chat.openai.com" text="ChatGPT" />). Botón de modo
+		oscuro e iconos tomados y adaptados del
+		<Link link="https://codepen.io/alireza82/pen/poRqBOq" text="pen" />
+		de
+		<Link link="" text="Alireza Mohammadi" />
+		en
+		<Link link="https://codepen.io/" text="codepen.io" />.
+		<Link
+			link="https://www.iconarchive.com/show/free-simple-line-icons-by-justicon/Development-Interface-Computer-Photo-Gear-Browser-icon.html"
+			text="Favicon"
+		/>
+		por
+		<Link link="https://www.behance.net/justicon" text="Just Icon" />
+		bajo la licencia
+		<Link
+			link="https://creativecommons.org/licenses/by/3.0/"
+			text="CC BY 3.0"
+		/>.
+	</Footer>
+</Layout>

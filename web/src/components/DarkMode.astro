@@ -1,0 +1,24 @@
+---
+import { Image } from "@astrojs/image/components";
+---
+
+<div class="theme-container" id="dark-mode-toggle">
+    <Image src="/images/sun.svg" class="feather feather-sun" alt="Light Mode" width={28} height={28} fit={"cover"} format={"svg"} />
+    <Image src="/images/moon.svg" class="feather feather-moon" alt="Dark Mode" width={28} height={28} fit={"cover"} format={"svg"} />
+</div>
+
+<style>
+    .feather-sun {
+        display: block;
+    }
+    .feather-moon {
+        display: none;
+    }
+
+    :global(.dark-mode) .feather-sun {
+        display: none;
+    }
+    :global(.dark-mode) .feather-moon {
+        display: block;
+    }
+</style>

@@ -1,0 +1,21 @@
+---
+const { lang } = Astro.props;
+import { Image } from "@astrojs/image/components";
+---
+
+<div class="language-dropdown">
+    <button class="dropdown-button" id="language-dropdown-toggle"
+        ><Image src="/images/language.svg" alt="Language" width={20} height={20} format={"svg"} />
+        {lang}</button
+    >
+    <ul class="dropdown-content">
+        <li>
+            <button onclick="location.href='/en/'" class="dropdown-item"
+                >English</button>
+        </li>
+        <li>
+            <button onclick="location.href='/es/'" class="dropdown-item"
+                >Español</button>
+        </li>
+    </ul>
+</div>

@@ -1,31 +1,91 @@
+function toggleDarkMode() {
+    const body = document.querySelector('body');
+    const container = document.querySelector('.container');
+    const themeContainer = document.getElementById('dark-mode-toggle');
+    const sectionHeadings = document.querySelectorAll('.section-heading');
+    const sectionContent = document.querySelectorAll('.section-content');
+    const dropbtn = document.getElementById('language-dropdown-toggle');
+    const langSvg = document.querySelector('.language-icon');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+    body.classList.toggle('dark-mode');
+    container.classList.toggle('dark-mode');
+    themeContainer.classList.toggle('dark-mode');
+    dropbtn.classList.toggle('dark-mode');
+    langSvg.classList.toggle('dark-mode');
+    dropdownContent.classList.toggle('dark-mode');
+
+    sectionHeadings.forEach((heading) => {
+        heading.classList.toggle('dark-mode');
+    });
+
+    sectionContent.forEach((content) => {
+        content.classList.toggle('dark-mode');
+    });
+
+    dropdownItems.forEach((item) => {
+        item.classList.toggle('dark-mode');
+    });
+}
+
+document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+
+const hamburger = document.getElementById('hamburger');
+const nav = document.querySelector('nav');
+
+const dropbtn = document.getElementById('language-dropdown-toggle');
+
+hamburger.addEventListener('click', () => {
+    document.querySelectorAll("nav").forEach((element) => {
+        element.classList.toggle('show');
+    });
+    document.querySelectorAll(".nav-links").forEach((element) => {
+        element.classList.toggle('show');
+    });
+});
+
+// Close the dropdown menu if the user clicks outside of it
+window.addEventListener('click', (event) => {
+    if (!event.target.matches('.dropdown-button')) {
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        dropdowns.forEach((dropdown) => {
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        });
+    }
+});
+
 // Get the income input element
 const incomeInput = document.getElementById("income");
 
-// Function to format the income with thousand separators and retain cursor position
-function formatIncomeAndRetainCursor(incomeInput) {
-    // Get the current cursor position
-    const cursorPosition = incomeInput.selectionStart;
+// Function to format the income with thousand separators
+function formatIncome(income) {
+    return income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
+// Event listener to format the income input with thousand separators
+incomeInput.addEventListener("input", function (event) {
     // Remove non-numeric characters from the input value
-    const sanitizedValue = incomeInput.value.replace(/[^0-9]/g, "");
+    const sanitizedValue = event.target.value.replace(/[^0-9]/g, "");
 
     // Format the sanitized value with thousand separators
     const formattedValue = formatIncome(sanitizedValue);
 
     // Update the input value with the formatted value
-    incomeInput.value = formattedValue;
-
-    // Calculate the new cursor position
-    const cursorOffset = formattedValue.length - sanitizedValue.length;
-    const newCursorPosition = cursorPosition + cursorOffset;
-
-    // Set the cursor position to the updated value
-    incomeInput.setSelectionRange(newCursorPosition, newCursorPosition);
-}
+    event.target.value = formattedValue;
+});
 
 // Event listener to format the income input with thousand separators and retain cursor position
-incomeInput.addEventListener("input", function (event) {
-    formatIncomeAndRetainCursor(event.target);
+incomeInput.addEventListener("keydown", function (event) {
+    // Check if the backspace key was pressed
+    if (event.key === "Backspace") {
+        // Clear the input value
+        incomeInput.value = "";
+        // Prevent the default backspace behavior
+        event.preventDefault();
+    }
 });
 
 // Function to remove thousand separators from the income value
@@ -36,7 +96,7 @@ function sanitizeIncome(income) {
 // Example function to retrieve the sanitized income value
 function getSanitizedIncome() {
     const income = incomeInput.value;
-    return parseInt(sanitizeIncome(income));
+    return sanitizeIncome(income);
 }
 
 // Get the department and zone dropdown elements
@@ -77,14 +137,28 @@ departmentDropdown.addEventListener("change", updateZoneOptions);
 // Initial update of the zone dropdown options
 updateZoneOptions();
 
-function checkIncome() {
-    const income = getSanitizedIncome();
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('income-form');
+    form.addEventListener('submit', handleSubmit);
+});
 
-    const departmentSelect = document.getElementById("department");
-    const department = departmentSelect.value;
+function handleSubmit(event) {
+    event.preventDefault();
 
-    const zoneSelect = document.getElementById("zone");
-    const zone = zoneSelect.value;
+    // Retrieve form values
+    const incomeInput = document.getElementById('income');
+    const departmentInput = document.getElementById('department');
+    const zoneInput = document.getElementById('zone');
+
+    const income = Number(incomeInput.value.replace(/,/g, ''));
+    const department = departmentInput.value.toString();
+    const zone = Number(zoneInput.value);
+
+    // Perform validation
+    if (!income || !department || !zone) {
+        alert('Please fill in all fields.');
+        return;
+    }
 
     // Make an API request
     const apiUrl = "https://faas-nyc1-2ef2e6cc.doserverless.co/api/v1/web/fn-e01604ac-526b-43b6-9ecf-31de678fcc44/geih/income"; // Replace with your API endpoint URL
@@ -193,7 +267,6 @@ function displayResults(income, department, zone, response) {
         resultContainer.appendChild(resultElement);
     }
 }
-
 
 function displayError() {
     const resultDiv = document.getElementById("result-container");

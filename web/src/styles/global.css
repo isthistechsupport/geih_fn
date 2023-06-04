@@ -1,0 +1,272 @@
+html {
+    background-color: #f1f5f9;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+p {
+    line-height: 2;
+    text-align: left;
+    font-size: large;
+}
+
+li {
+    line-height: 2;
+    text-align: left;
+    font-size: large;
+}
+
+a {
+    color: #005684;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.picture {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.theme-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: #ffffff;
+    box-shadow: 7px 7px 15px -10px #bbcfda, -4px -4px 13px #ffffff,
+        inset 7px 7px 3px rgba(209, 217, 230, 0.35),
+        inset -11px -11px 3px rgba(255, 255, 255, 0.3)
+}
+
+/* nav styles */
+
+.nav-links {
+    width: 100%;
+    top: 5rem;
+    left: 48px;
+    display: none;
+    margin: 0;
+    text-align: center;
+}
+
+.nav-links a {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease
+}
+
+.show {
+    display: unset;
+}
+
+.hamburger {
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    height: 2px;
+    width: 35px;
+    margin: 0.5rem 0;
+    background-color: #005684;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+nav.show .line1 {
+    transform: translate(-10px) rotate(45deg) translate(15px);
+}
+
+nav.show .line2 {
+    opacity: 0;
+}
+
+nav.show .line3 {
+    transform: translate(-10px) rotate(-45deg) translate(15px);
+}
+
+nav.show .nav-links {
+    transform: translateX(0%);
+}
+
+@media screen and (min-width: 636px) {
+    .nav-links {
+        display: block;
+        position: static;
+        width: auto;
+        background: none;
+    }
+
+    .nav-links a {
+        display: inline-block;
+        padding: 15px 20px;
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    p {
+        line-height: 1.5;
+        text-align: justify;
+        font-size: medium;
+    }
+    
+    li {
+        line-height: 1.5;
+        text-align: justify;
+        font-size: medium;
+    }    
+}
+
+/* Footer styles */
+footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    font-size: small;
+    color: #484848;
+    transition: color 0.3s ease-in-out;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: #484848 !important;
+    transition: color 0.3s ease-in-out;
+    text-decoration: underline;
+}
+
+/* Dark mode footer styles */
+body.dark-mode .footer {
+    color: #f1f1f1;
+}
+
+body.dark-mode .footer a {
+    color: #f1f1f1;
+    text-decoration: underline;
+}
+
+body.dark-mode .footer a:hover {
+    color: #ccc;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #333;
+    color: #f1f1f1;
+}
+
+.container.dark-mode {
+    background-color: #444;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.section-heading.dark-mode {
+    color: #f1f1f1;
+}
+
+.section-content.dark-mode {
+    color: #f1f1f1;
+}
+
+/* Link styles */
+a:hover {
+    color: #0056b3;
+}
+
+/* Dark mode link styles */
+body.dark-mode a {
+    color: #67b3ff;
+}
+
+body.dark-mode a:hover {
+    color: #3a80cc;
+}
+
+/* Dark mode button styles */
+.theme-container.dark-mode {
+    background: linear-gradient(145deg, #23282c, #1e2125);
+    box-shadow:
+        inset 7px 7px 3px #1e2226,
+        inset -11px -11px 3px #1c1f24;
+}
+
+.dark-mode-toggle {
+    display: inline-block;
+    background-color: #333;
+    color: #f1f1f1;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.dark-mode-toggle:hover {
+    background-color: #555;
+}
+
+body.dark-mode .dark-mode-toggle {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+    background-color: #ddd;
+}
+
+.feather {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+}
+
+.language-icon {
+    fill: #1a1d20;
+}
+
+.language-icon.dark-mode{
+    fill: #f1f1f1;
+}

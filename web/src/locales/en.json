@@ -1,0 +1,97 @@
+{
+    "pageTitle": "Diego Rivero – Data Scientist and Geospatial Engineer",
+    "pageDescription" : "I'm Diego, a data scientist and geospatial engineer with lots of experience in GIS data analysis and transformations for BPO and Telecom. Nice to meet you!",
+    "aboutMeTitle": "About me",
+    "aboutMeText": "I'm Diego, a data scientist and geospatial engineer working in the Telecom and BPO sectors. With 8 years of experience in databases, SQL, and geospatial data management, I lead ELT implementation, data warehousing, and data modeling. Skilled in SQL reporting with SSRS\/ Power BI. Native Spanish speaker and C2 certified in English. Passionate about all things data, especially geospatial data analysis. Open to new opportunities and collaborations.",
+    "skillsTitle": "Things I know",
+    "skillsText": {
+        "dbtText": "Data pipeline development (dbt)",
+        "eltText": "ELT (Extract, Load, Transform)",
+        "dataModelingText": "Data modeling and database design",
+        "databasesText": "SQL and NoSQL databases (Postgres, SQL Server, SQLite, Redis)",
+        "gisText": "GIS – Geographic Information Systems (PostGIS, QGIS, ArcGIS)",
+        "publicCloudsText": "Public clouds (AWS, Azure, DigitalOcean)",
+        "dataPlatformsText": "Cloud data management platforms (Databricks, Deepnote)",
+        "progLangsText": "Programming languages (Python, SQL, C#)",
+        "dockerText": "Docker and containerization",
+        "dataVizText": "Data visualization (Tableau, Power BI)",
+        "dataQAText": "Data quality and testing",
+        "excelText": "Lots of Excel (xlookup\/vlookup, tables and pivot tables, embedded SQL queries, VBA)"
+    },
+    "portfolioTitle": "Things I've done",
+    "portfolioText": {
+        "tootbot": {
+            "desc": "A fork of a bot to repost memes to Twitter called",
+            "link": "Tootbot"
+        },
+        "cubeposter": {
+            "desc": "A page that makes anything you write into a cube in markdown code block format called",
+            "link": "Cubeposter"
+        },
+        "ttsForDiscord": {
+            "desc": "A bot that takes text and reads it out loud on Discord using Azure called",
+            "link": "TTS for Discord"
+        },
+        "geih": {
+            "desc": "A page to know where your salary would rank you in my country (which is still WIP, but you can find the",
+            "link": "backend analysis here"
+        },
+        "sqlScripts": {
+            "desc": "A compilation of useful",
+            "link": "Microsoft SQL Server scripts"
+        },
+        "mset": {
+            "desc": "An implementation of a Mandelbrot set renderer in F# (my favorite side language) that is available",
+            "link": "on my GitHub"
+        },
+        "website": {
+            "desc": "This website, which was built in ",
+            "desc2": ", and you can find",
+            "link": "the source code for it here"
+        },
+        "github": {
+            "desc": "Check out",
+            "link": "my GitHub",
+            "desc2": "to see what other (open source) things I've done!"
+        },
+        "closed": {
+            "desc": "I've also done a lot of closed source work on the technical side of management consulting for the telecom & tech industry, plus a lot of data pipelines and data management (and people management, too) for the BPO industry."
+        },
+        "cta": {
+            "desc": "If you like what I do enough to want me to do something for you, great! I also do all sorts of technical consulting work with my firm",
+            "link": "Pidgin",
+            "desc2": "and I'm pretty sure I can help you out. See",
+            "link2": "my contact details below"
+        }
+    },
+    "interestsTitle": "Things I'm learning (or know but haven't used at work)",
+    "likesTitle": "Things I like (enough to do them in my free time)",
+    "likesText": {
+        "funcProgText": "Functional programming",
+        "readingText": "Reading – a lot of reading",
+        "historyText": "World History & Geopolitics",
+        "artText": "Art, especially painting and classical music",
+        "musicText": "Music, especially indie and alternative rock",
+        "travelText": "Traveling",
+        "photoText": "Landscape photography (I love sunsets)",
+        "cookingText": "Cooking (I especially love mediterranean cuisine, from Spain to Turkey)",
+        "swText": "Star Wars (I like the sequels more than the prequels)",
+        "imageText": "This image of C-3PO as Ironman"
+    },
+    "contactTitle": "Contact",
+    "contactText": {
+        "emailText": "Email",
+        "workEmailText": "Work email"
+    },
+    "footerText1": "Website designed and developed by Diego Rivero (with some help from ",
+    "footerText2": "). Dark mode button and icons adapted and taken from ",
+    "footerText3": "Alireza Mohammadi's",
+    "footerText4": "",
+    "footerText5": "pen",
+    "footerText6": " at ",
+    "footerLink1": "https://www.linkedin.com/in/wwwalireza/",
+    "footerLink2": "https://codepen.io/alireza82/pen/poRqBOq",
+    "footerText7": "Favicon",
+    "footerText8": " by ",
+    "footerText9": ", licensed under "
+}
