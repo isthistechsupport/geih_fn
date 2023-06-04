@@ -4,7 +4,6 @@ function toggleDarkMode() {
     const themeContainer = document.getElementById('dark-mode-toggle');
     const sectionHeadings = document.querySelectorAll('.section-heading');
     const sectionContent = document.querySelectorAll('.section-content');
-    const dropbtn = document.getElementById('language-dropdown-toggle');
     const langSvg = document.querySelector('.language-icon');
     const dropdownContent = document.querySelector('.dropdown-content');
     const dropdownItems = document.querySelectorAll('.dropdown-item');
