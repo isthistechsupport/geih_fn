@@ -123,7 +123,7 @@ def prettify_results(
     # Department income quantiles
     result[
         "department_income_1"
-    ] = f"Estás en el {1-(dept_quantile_below/1000):.1%} más alto de ingresos en {dept_str.title()}.".strip('.')
+    ] = f"Estás en el {1-(dept_quantile_below/1000):.1%} más alto de ingresos en {dept_str.title().strip('.')}."
     if not single_quantile_dept:
         result[
             "department_income_2"
@@ -134,7 +134,7 @@ def prettify_results(
     # Department and zone income quantiles
     result[
         "department_zone_income_1"
-    ] = f"Estás en el {1-(dept_zone_quantile_below/1000):.1%} más alto de ingresos en la zona {zone_str} de {dept_str.title()}."
+    ] = f"Estás en el {1-(dept_zone_quantile_below/1000):.1%} más alto de ingresos en la zona {zone_str} de {dept_str.title().strip('.')}."
     if not single_quantile_dept_zone:
         result[
             "department_zone_income_2"
