@@ -123,25 +123,25 @@ def prettify_results(
     # Department income quantiles
     result[
         "department_income_1"
-    ] = f"Estás en el {1-(dept_quantile_below/1000):.1%} más alto de ingresos en {dept_str}."
+    ] = f"Estás en el {1-(dept_quantile_below/1000):.1%} más alto de ingresos en {dept_str.title()}."
     if not single_quantile_dept:
         result[
             "department_income_2"
-        ] = f"El {(dept_quantile_above-dept_quantile_below-1)/1000:.1%} de la población en {dept_str} tiene tus mismos ingresos."
+        ] = f"El {(dept_quantile_above-dept_quantile_below-1)/1000:.1%} de la población en {dept_str.title()} tiene tus mismos ingresos."
     result[
         "department_income_3"
-    ] = f"En un salón con 1000 residentes de {dept_str} tendrías más ingresos que {dept_quantile_below:.0f} de ellas."
+    ] = f"En un salón con 1000 residentes de {dept_str.title()} tendrías más ingresos que {dept_quantile_below:.0f} de ellas."
     # Department and zone income quantiles
     result[
         "department_zone_income_1"
-    ] = f"Estás en el {1-(dept_zone_quantile_below/1000):.1%} más alto de ingresos en la zona {zone_str} de {dept_str}."
+    ] = f"Estás en el {1-(dept_zone_quantile_below/1000):.1%} más alto de ingresos en la zona {zone_str} de {dept_str.title()}."
     if not single_quantile_dept_zone:
         result[
             "department_zone_income_2"
-        ] = f"El {(dept_zone_quantile_above-dept_zone_quantile_below-1)/1000:.1%} de la población en la zona {zone_str} de {dept_str} tiene tus mismos ingresos."
+        ] = f"El {(dept_zone_quantile_above-dept_zone_quantile_below-1)/1000:.1%} de la población en la zona {zone_str} de {dept_str.title()} tiene tus mismos ingresos."
     result[
         "department_zone_income_3"
-    ] = f"En un salón con 1000 residentes de la zona {zone_str} de {dept_str} tendrías más ingresos que {dept_zone_quantile_below:.0f} de ellas."
+    ] = f"En un salón con 1000 residentes de la zona {zone_str} de {dept_str.title()} tendrías más ingresos que {dept_zone_quantile_below:.0f} de ellas."
     return result
 
 
