@@ -11,7 +11,6 @@ function toggleDarkMode() {
     body.classList.toggle('dark-mode');
     container.classList.toggle('dark-mode');
     themeContainer.classList.toggle('dark-mode');
-    dropbtn.classList.toggle('dark-mode');
     langSvg.classList.toggle('dark-mode');
     dropdownContent.classList.toggle('dark-mode');
 
