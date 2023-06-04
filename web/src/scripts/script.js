@@ -31,32 +31,6 @@ function toggleDarkMode() {
 
 document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
 
-const hamburger = document.getElementById('hamburger');
-const nav = document.querySelector('nav');
-
-const dropbtn = document.getElementById('language-dropdown-toggle');
-
-hamburger.addEventListener('click', () => {
-    document.querySelectorAll("nav").forEach((element) => {
-        element.classList.toggle('show');
-    });
-    document.querySelectorAll(".nav-links").forEach((element) => {
-        element.classList.toggle('show');
-    });
-});
-
-// Close the dropdown menu if the user clicks outside of it
-window.addEventListener('click', (event) => {
-    if (!event.target.matches('.dropdown-button')) {
-        const dropdowns = document.querySelectorAll('.dropdown-content');
-        dropdowns.forEach((dropdown) => {
-            if (dropdown.classList.contains('show')) {
-                dropdown.classList.remove('show');
-            }
-        });
-    }
-});
-
 // Get the income input element
 const incomeInput = document.getElementById("income");
 

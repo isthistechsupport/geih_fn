@@ -16,15 +16,16 @@ const pageDescription =
 	</div>
 	<form id="income-form">
 		<div class="input-group">
+			<label for="income" class="input-label">Salario</label>
 			<input
 				type="text"
 				id="income"
 				name="income"
 				placeholder="Ingrese su salario"
 			/>
-			<label for="income" class="input-label">Salario</label>
 		</div>
 		<div class="input-group">
+			<label for="department" class="input-label">Departamento</label>
 			<select id="department" name="department">
 				<option value="">Seleccione su departamento</option>
 				<option value="05">Antioquia</option>
@@ -63,15 +64,14 @@ const pageDescription =
 				<option value="97">Vaupés</option>
 				<option value="99">Vichada</option>
 			</select>
-			<label for="department" class="input-label">Departamento</label>
 		</div>
 		<div class="input-group">
+			<label for="zone" class="input-label">Zona</label>
 			<select id="zone" name="zone">
 				<option value="">Seleccione su zona</option>
 				<option value="1">Urbana</option>
 				<option value="2">Rural</option>
 			</select>
-			<label for="zone" class="input-label">Zona</label>
 		</div>
 		<button type="submit" class="button">Calcular</button>
 	</form>
