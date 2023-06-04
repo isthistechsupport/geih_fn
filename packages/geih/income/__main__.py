@@ -165,8 +165,9 @@ def main(args):
     host = os.environ['HOST']
     port = os.environ['PORT']
     db = os.environ['DB']
+    sslmode = os.environ['SSLMODE']
     connstring = f"{protocol}+{driver}://{user}:{password}@{host}:{port}/{db}"
-    engine = create_engine(connstring, connect_args={'sslmode': 'require'})
+    engine = create_engine(connstring, connect_args={'sslmode': sslmode})
     metadata = MetaData(schema="public")
     metadata.reflect(
         bind=engine,

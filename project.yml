@@ -5,11 +5,13 @@ packages:
       shared: false
       environment:
         PROTOCOL: "${PROTOCOL}"
+        DRIVER: "${DRIVER}"
         USER: "${USER}"
         PASSWORD: "${PASSWORD}"
         HOST: "${HOST}"
         PORT: "${PORT}"
         DB: "${DB}"
+        SSLMODE: "${SSLMODE}"
       parameters: {}
       annotations: {}
       functions:
