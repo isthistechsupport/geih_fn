@@ -123,7 +123,7 @@ def prettify_results(
     # Department income quantiles
     result[
         "department_income_1"
-    ] = f"Estás en el {1-(dept_quantile_below/1000):.1%} más alto de ingresos en {dept_str.title()}.".trim('.')
+    ] = f"Estás en el {1-(dept_quantile_below/1000):.1%} más alto de ingresos en {dept_str.title()}.".strip('.')
     if not single_quantile_dept:
         result[
             "department_income_2"
