@@ -133,7 +133,7 @@ function handleSubmit(event) {
     }
 
     // Make an API request
-    const apiUrl = "https://faas-nyc1-2ef2e6cc.doserverless.co/api/v1/web/fn-e01604ac-526b-43b6-9ecf-31de678fcc44/geih/income"; // Replace with your API endpoint URL
+    const apiUrl = "/api/geih/income"; // Replace with your API endpoint URL
     const data = {
         income: income,
         department: department,
