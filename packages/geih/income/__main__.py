@@ -159,13 +159,14 @@ def main(args):
         return {"error": "Please provide income, department, and zone."}
     # get connection parameters from environment variables
     protocol = os.environ['PROTOCOL']
+    driver = os.environ['DRIVER']
     user = os.environ['USER']
     password = os.environ['PASSWORD']
     host = os.environ['HOST']
     port = os.environ['PORT']
     db = os.environ['DB']
-    connstring = f"{protocol}://{user}:{password}@{host}:{port}/{db}"
-    engine = create_engine(connstring)
+    connstring = f"{protocol}+{driver}://{user}:{password}@{host}:{port}/{db}"
+    engine = create_engine(connstring, connect_args={'sslmode': 'require'})
     metadata = MetaData(schema="public")
     metadata.reflect(
         bind=engine,
