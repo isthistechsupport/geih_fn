@@ -40,7 +40,7 @@ function formatIncome(income) {
 // Event listener to format the income input with thousand separators
 incomeInput.addEventListener("input", function (event) {
     // Remove non-numeric characters from the input value
-    const sanitizedValue = event.target.value.replace(/[^0-9]/g, "");
+    const sanitizedValue = event.target.value.replace(/\D/g, "");
 
     // Format the sanitized value with thousand separators
     const formattedValue = formatIncome(sanitizedValue);
@@ -114,24 +114,42 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', handleSubmit);
 });
 
+function displayLoading() {
+    const loadingIcon = document.getElementById("loading-icon");
+    loadingIcon.classList.remove("hidden");
+}
+
+function hideLoading() {
+    const loadingIcon = document.getElementById("loading-icon");
+    loadingIcon.classList.add("hidden");
+}
+
+class HttpError extends Error {
+    constructor(response) {
+        super(`${response.status} for ${response.url}`);
+        this.name = 'HttpError';
+        this.response = response;
+    }
+}
+
 function handleSubmit(event) {
     event.preventDefault();
-
+    
     // Retrieve form values
     const incomeInput = document.getElementById('income');
     const departmentInput = document.getElementById('department');
     const zoneInput = document.getElementById('zone');
-
+    
     const income = Number(incomeInput.value.replace(/,/g, ''));
     const department = departmentInput.value.toString();
     const zone = Number(zoneInput.value);
-
+    
     // Perform validation
     if (!income || !department || !zone) {
         alert('Please fill in all fields.');
         return;
     }
-
+    
     // Make an API request
     const apiUrl = "/api/geih/income"; // Replace with your API endpoint URL
     const data = {
@@ -139,7 +157,8 @@ function handleSubmit(event) {
         department: department,
         zone: zone
     };
-
+    displayLoading();
+    
     fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -147,7 +166,13 @@ function handleSubmit(event) {
         },
         body: JSON.stringify(data)
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status == 200) {
+                return response.json()
+            } else {
+                throw new HttpError(response);
+            }
+        })
         .then(result => displayResults(income, department, zone, result))
         .catch(error => {
             console.error("Error:", error);
@@ -159,18 +184,30 @@ function prettifyResults(
     income,
     departmentCode,
     zone,
-    quantileBelow,
-    quantileAbove,
-    deptQuantileBelow,
-    deptQuantileAbove,
-    deptZoneQuantileBelow,
-    deptZoneQuantileAbove
+    quantiles
 ) {
     const departmentNames = {
         "05": "Antioquia", "08": "Atlántico", "11": "Bogotá, D.C.", "13": "Bolívar", "15": "Boyacá", "17": "Caldas", "18": "Caquetá", "19": "Cauca", "20": "Cesar", "23": "Córdoba", "25": "Cundinamarca", "27": "Chocó", "41": "Huila", "44": "La Guajira", "47": "Magdalena", "50": "Meta", "52": "Nariño", "54": "Norte de Santander", "63": "Quindío", "66": "Risaralda", "68": "Santander", "70": "Sucre", "73": "Tolima", "76": "Valle del Cauca", "81": "Arauca", "85": "Casanare", "86": "Putumayo", "88": "Archipiélago de San Andrés, Providencia y Santa Catalina", "91": "Amazonas", "94": "Guainía", "95": "Guaviare", "97": "Vaupés", "99": "Vichada"
     };
 
-    const result = {};
+    let quantileBelow = quantiles.quantileBelow;
+    let quantileAbove = quantiles.quantileAbove;
+    let deptQuantileBelow = quantiles.deptQuantileBelow;
+    let deptQuantileAbove = quantiles.deptQuantileAbove;
+    let deptZoneQuantileBelow = quantiles.deptZoneQuantileBelow;
+    let deptZoneQuantileAbove = quantiles.deptZoneQuantileAbove;
+    let result = {
+        income: String(),
+        nationalIncome1: String(),
+        nationalIncome2: String(),
+        nationalIncome3: String(),
+        departmentIncome1: String(),
+        departmentIncome2: String(),
+        departmentIncome3: String(),
+        departmentZoneIncome1: String(),
+        departmentZoneIncome2: String(),
+        departmentZoneIncome3: String(),
+    };
     let singleQuantile = false;
     let singleQuantileDept = false;
     let singleQuantileDeptZone = false;
@@ -193,42 +230,46 @@ function prettifyResults(
 
     const departmentName = departmentNames[departmentCode];
 
-    result["income"] = `Tienes un ingreso de ${income.toLocaleString("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 })} mensuales.`;
+    result.income = `Tienes un ingreso de ${income.toLocaleString("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 })} mensuales.`;
     // National income quantiles
-    result["national_income_1"] = `Estás en el ${((1000 - quantileBelow) / 10).toFixed(1)}% más alto de ingresos a nivel nacional.`;
+    result.nationalIncome1 = `Estás en el ${((1000 - quantileBelow) / 10).toFixed(1)}% más alto de ingresos a nivel nacional.`;
     if (!singleQuantile) {
-        result["national_income_2"] = `El ${((quantileAbove - quantileBelow - 1) / 10).toFixed(1)}% de la población en Colombia tiene tus mismos ingresos.`;
+        result.nationalIncome2 = `El ${((quantileAbove - quantileBelow - 1) / 10).toFixed(1)}% de la población en Colombia tiene exactamente tus mismos ingresos (ni más, ni menos).`;
     }
-    result["national_income_3"] = `En un salón con 1000 residentes de Colombia tendrías más ingresos que ${Math.round(quantileBelow)} de ellas.`;
+    result.nationalIncome3 = `En un salón con 1000 residentes de Colombia tendrías más ingresos que ${Math.round(quantileBelow)} de ellas.`;
     // Department income quantiles
-    result["department_income_1"] = `Estás en el ${((1000 - deptQuantileBelow) / 10).toFixed(1)}% más alto de ingresos en ${departmentName}.`;
+    result.departmentIncome1 = `Estás en el ${((1000 - deptQuantileBelow) / 10).toFixed(1)}% más alto de ingresos en ${departmentName}.`;
     if (!singleQuantileDept) {
-        result["department_income_2"] = `El ${((deptQuantileAbove - deptQuantileBelow - 1) / 10).toFixed(1)}% de la población en ${departmentName} tiene tus mismos ingresos.`;
+        result.departmentIncome2 = `El ${((deptQuantileAbove - deptQuantileBelow - 1) / 10).toFixed(1)}% de la población en ${departmentName} tiene exactamente tus mismos ingresos (ni más, ni menos).`;
     }
-    result["department_income_3"] = `En un salón con 1000 residentes de ${departmentName} tendrías más ingresos que ${Math.round(deptQuantileBelow)} de ellas.`;
+    result.departmentIncome3 = `En un salón con 1000 residentes de ${departmentName} tendrías más ingresos que ${Math.round(deptQuantileBelow)} de ellas.`;
     // Department and zone income quantiles
-    result["department_zone_income_1"] = `Estás en el ${((1000 - deptZoneQuantileBelow) / 10).toFixed(1)}% más alto de ingresos en la zona ${zoneStr} de ${departmentName}.`;
+    result.departmentZoneIncome1 = `Estás en el ${((1000 - deptZoneQuantileBelow) / 10).toFixed(1)}% más alto de ingresos en la zona ${zoneStr} de ${departmentName}.`;
     if (!singleQuantileDeptZone) {
-        result["department_zone_income_2"] = `El ${((deptZoneQuantileAbove - deptZoneQuantileBelow - 1) / 10).toFixed(1)}% de la población en la zona ${zoneStr} de ${departmentName} tiene tus mismos ingresos.`;
+        result.departmentZoneIncome2 = `El ${((deptZoneQuantileAbove - deptZoneQuantileBelow - 1) / 10).toFixed(1)}% de la población en la zona ${zoneStr} de ${departmentName} tiene exactamente tus mismos ingresos (ni más, ni menos).`;
     }
-    result["department_zone_income_3"] = `En un salón con 1000 residentes de la zona ${zoneStr} de ${departmentName} tendrías más ingresos que ${Math.round(deptZoneQuantileBelow)} de ellas.`;
+    result.departmentZoneIncome3 = `En un salón con 1000 residentes de la zona ${zoneStr} de ${departmentName} tendrías más ingresos que ${Math.round(deptZoneQuantileBelow)} de ellas.`;
 
     return result;
 }
 
 function displayResults(income, department, zone, response) {
+    let parsedResponse = {
+        quantileBelow: parseInt(response.quantileBelow),
+        quantileAbove: parseInt(response.quantileAbove),
+        deptQuantileBelow: parseInt(response.deptQuantileBelow),
+        deptQuantileAbove: parseInt(response.deptQuantileAbove),
+        deptZoneQuantileBelow: parseInt(response.deptZoneQuantileBelow),
+        deptZoneQuantileAbove: parseInt(response.deptZoneQuantileAbove)
+    }
     const results = prettifyResults(
         parseInt(income),
         department,
         parseInt(zone),
-        parseInt(response.quantileBelow),
-        parseInt(response.quantileAbove),
-        parseInt(response.deptQuantileBelow),
-        parseInt(response.deptQuantileAbove),
-        parseInt(response.deptZoneQuantileBelow),
-        parseInt(response.deptZoneQuantileAbove)
+        parsedResponse
     );
-
+    hideLoading();
+    
     const resultContainer = document.getElementById("result-container");
     resultContainer.innerHTML = "";
 

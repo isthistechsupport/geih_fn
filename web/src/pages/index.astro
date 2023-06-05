@@ -26,16 +26,16 @@ const pageDescription =
 			/> de marzo de 2023.
 		</p>
 		<p>
-		<Link
-			link="https://github.com/isthistechsupport/geih_fn"
-			text="Código fuente de esta página"
-		/>.
+			<Link
+				link="https://github.com/isthistechsupport/geih_fn"
+				text="Código fuente de esta página"
+			/>.
 		</p>
 		<p>
-		<Link
-			link="https://github.com/isthistechsupport/geih"
-			text="Código fuente del análisis subyacente"
-		/>.
+			<Link
+				link="https://github.com/isthistechsupport/geih"
+				text="Código fuente del análisis subyacente"
+			/>.
 		</p>
 	</div>
 	<form id="income-form">
@@ -98,12 +98,15 @@ const pageDescription =
 			</select>
 		</div>
 		<button type="submit" class="button">Calcular</button>
+		<div id="loading-icon" class="hidden">
+			<div class="spinner"></div>
+		</div>
 	</form>
 	<div id="result-container"></div>
 	<Footer>
-		Fuente: Departamento Administrativo Nacional de Estadística: 
-		<Link link="www.dane.gov.co" text="www.dane.gov.co" />.
-		Sitio web diseñado y desarrollado por
+		Fuente: Departamento Administrativo Nacional de Estadística:
+		<Link link="www.dane.gov.co" text="www.dane.gov.co" />. Sitio web
+		diseñado y desarrollado por
 		<Link link="https://drivero.com.co" text="Diego Rivero" />
 		(con algo de ayuda de
 		<Link link="https://chat.openai.com" text="ChatGPT" />). Botón de modo
