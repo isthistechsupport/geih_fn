@@ -316,15 +316,15 @@ select {
 }
 
 /* Add styles for the loading spinner */
-.hidden {
-    display: none;
-}
-
 #loading-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 40px;
+}
+
+.hidden {
+    display: none;
 }
 
 .spinner {
