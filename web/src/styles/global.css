@@ -170,22 +170,22 @@ footer p {
 }
 
 footer a {
-    color: #484848 !important;
+    color: #484848;
     transition: color 0.3s ease-in-out;
     text-decoration: underline;
 }
 
 /* Dark mode footer styles */
-body.dark-mode .footer {
-    color: #f1f1f1;
+body.dark-mode footer {
+    color: #f1f1f1 !important;
 }
 
-body.dark-mode .footer a {
+body.dark-mode footer a {
     color: #f1f1f1;
     text-decoration: underline;
 }
 
-body.dark-mode .footer a:hover {
+body.dark-mode footer a:hover {
     color: #ccc;
 }
 
