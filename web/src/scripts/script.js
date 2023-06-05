@@ -269,7 +269,7 @@ function displayResults(income, department, zone, response) {
         parsedResponse
     );
     hideLoading();
-    
+
     const resultContainer = document.getElementById("result-container");
     resultContainer.innerHTML = "";
 
@@ -282,6 +282,7 @@ function displayResults(income, department, zone, response) {
 }
 
 function displayError() {
+    hideLoading();
     const resultDiv = document.getElementById("result-container");
     resultDiv.innerHTML = "Ocurrió un error. Por favor, intenta nuevamente.";
 }
