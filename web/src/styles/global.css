@@ -279,6 +279,10 @@ body.dark-mode .dark-mode-toggle:hover {
     margin-bottom: 20px;
 }
 
+form {
+    padding-top: 20px;
+}
+
 input,
 select {
     width: 80%;
