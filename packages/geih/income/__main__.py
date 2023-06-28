@@ -82,19 +82,14 @@ def main(args):
     if int(income) < 0 or department == "unknown" or int(zone) == -1:
         return {"error": "Please provide income, department, and zone."}
     # get connection parameters from environment variables
-    dbprotocol = os.environ["DBPROTOCOL"]
+    dbdialect = os.environ["DBDIALECT"]
     dbdriver = os.environ["DBDRIVER"]
-    dbuser = os.environ["DBUSER"]
-    dbpassword = os.environ["DBPASSWORD"]
-    dbhost = os.environ["DBHOST"]
-    dbport = os.environ["DBPORT"]
-    dbname = os.environ["DBNAME"]
-    dbsslmode = os.environ["DBSSLMODE"]
+    dbpath = os.environ["DBPATH"]
     connstring = (
-        f"{dbprotocol}+{dbdriver}://{dbuser}:{dbpassword}@{dbhost}:{dbport}/{dbname}"
+        f"{dbdialect}+{dbdriver}:///{dbpath}"
     )
-    engine = create_engine(connstring, connect_args={"sslmode": dbsslmode})
-    metadata = MetaData(schema="public")
+    engine = create_engine(connstring, echo=False)
+    metadata = MetaData()
     metadata.reflect(
         bind=engine,
         only=[
