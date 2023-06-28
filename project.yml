@@ -4,14 +4,9 @@ packages:
     - name: geih
       shared: false
       environment:
-        DBPROTOCOL: "${DBPROTOCOL}"
+        DBDIALECT: "${DBDIALECT}"
         DBDRIVER: "${DBDRIVER}"
-        DBUSER: "${DBUSER}"
-        DBPASSWORD: "${DBPASSWORD}"
-        DBHOST: "${DBHOST}"
-        DBPORT: "${DBPORT}"
-        DBNAME: "${DBNAME}"
-        DBSSLMODE: "${DBSSLMODE}"
+        DBPATH: "${DBPATH}"
       parameters: {}
       annotations: {}
       functions:
