@@ -4,9 +4,6 @@ packages:
     - name: geih
       shared: false
       environment:
-        DBDIALECT: "${DBDIALECT}"
-        DBDRIVER: "${DBDRIVER}"
-        DBPATH: "${DBPATH}"
       parameters: {}
       annotations: {}
       functions:
