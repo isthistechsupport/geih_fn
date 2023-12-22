@@ -26,16 +26,19 @@ def get_quantile(data, income: int, department: str = None, zone: int = None, ab
     incomes = data
     if department:
         incomes = [d for d in incomes if d['department'] == department]
+        print(len(incomes))
     if zone:
         incomes = [d for d in incomes if d['zone'] == zone]
+        print(len(incomes))
     if above:
-        incomes = [d['income'] for d in incomes if d['income'] > income]
+        incomes = [d['quantile'] for d in incomes if d['income'] > income]
+        print(len(incomes))
         if incomes:
             return min(incomes)
         else:
             return None
     else:
-        incomes = [d['income'] for d in incomes if d['income'] < income]
+        incomes = [d['quantile'] for d in incomes if d['income'] < income]
         if incomes:
             return max(incomes)
         else:
