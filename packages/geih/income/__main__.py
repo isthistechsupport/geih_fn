@@ -1,75 +1,45 @@
-from sqlalchemy import (
-    create_engine,
-    select,
-    Table,
-    MetaData,
-    Engine,
-    func,
-)
-import os
+import csv
 
 
-def get_tables(metadata: MetaData, engine: Engine):
-    income_table = Table("fact_income_permille", metadata, autoload_with=engine)
-    income_dept_table = Table(
-        "fact_income_permille_dept", metadata, autoload_with=engine
-    )
-    income_dept_zone_table = Table(
-        "fact_income_permille_dept_zone", metadata, autoload_with=engine
-    )
-    return (income_table, income_dept_table, income_dept_zone_table)
+def read_csv_to_dict(file_path):
+    data = []
+    with open(file_path, "r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            data.append(row)
+    return data
 
 
-def get_income_quantiles(
-    income: int,
-    department: str,
-    zone: int,
-    income_table: Table,
-    income_dept_table: Table,
-    income_dept_zone_table: Table,
-    engine: Engine,
-):
-    with engine.connect() as conn:
-        quantile_below = conn.execute(
-            select(func.coalesce(func.max(income_table.c.quantile), 0)).where(
-                income_table.c.income < income
-            )
-        ).scalar_one()
-        quantile_above = conn.execute(
-            select(func.min(income_table.c.quantile)).where(
-                income_table.c.income > income
-            )
-        ).scalar_one()
-        dept_quantile_below = conn.execute(
-            select(func.coalesce(func.max(income_dept_table.c.quantile), 0))
-            .where(income_dept_table.c.income < income)
-            .where(income_dept_table.c.department == department)
-        ).scalar_one()
-        dept_quantile_above = conn.execute(
-            select(func.min(income_dept_table.c.quantile))
-            .where(income_dept_table.c.income > income)
-            .where(income_dept_table.c.department == department)
-        ).scalar_one()
-        dept_zone_quantile_below = conn.execute(
-            select(func.coalesce(func.max(income_dept_zone_table.c.quantile), 0))
-            .where(income_dept_zone_table.c.income < income)
-            .where(income_dept_zone_table.c.department == department)
-            .where(income_dept_zone_table.c.zone == zone)
-        ).scalar_one()
-        dept_zone_quantile_above = conn.execute(
-            select(func.min(income_dept_zone_table.c.quantile))
-            .where(income_dept_zone_table.c.income > income)
-            .where(income_dept_zone_table.c.department == department)
-            .where(income_dept_zone_table.c.zone == zone)
-        ).scalar_one()
-    return (
-        quantile_below,
-        quantile_above,
-        dept_quantile_below,
-        dept_quantile_above,
-        dept_zone_quantile_below,
-        dept_zone_quantile_above,
-    )
+def get_files():
+    fact_income_permille_file = "fact_income_permille.csv"
+    fact_income_permille_dept_file = "fact_income_permille_dept.csv"
+    fact_income_permille_dept_zone_file = "fact_income_permille_dept_zone.csv"
+    
+    fact_income_permille = read_csv_to_dict(fact_income_permille_file)
+    fact_income_permille_dept = read_csv_to_dict(fact_income_permille_dept_file)
+    fact_income_permille_dept_zone = read_csv_to_dict(fact_income_permille_dept_zone_file)
+    
+    return fact_income_permille, fact_income_permille_dept, fact_income_permille_dept_zone
+
+
+def get_quantile(data, income: int, department: str = None, zone: int = None, above: bool = True):
+    incomes = data
+    if department:
+        incomes = [d for d in incomes if d['department'] == department]
+    if zone:
+        incomes = [d for d in incomes if d['zone'] == zone]
+    if above:
+        incomes = [d['income'] for d in incomes if d['income'] > income]
+        if incomes:
+            return min(incomes)
+        else:
+            return None
+    else:
+        incomes = [d['income'] for d in incomes if d['income'] < income]
+        if incomes:
+            return max(incomes)
+        else:
+            return None
 
 
 def main(args):
@@ -81,44 +51,13 @@ def main(args):
         return {"error": f"Error: {e}"}
     if int(income) < 0 or department == "unknown" or int(zone) == -1:
         return {"error": "Please provide income, department, and zone."}
-    # get connection parameters from environment variables
-    dbdialect = os.environ["DBDIALECT"]
-    dbdriver = os.environ["DBDRIVER"]
-    dbpath = os.environ["DBPATH"]
-    connstring = (
-        f"{dbdialect}+{dbdriver}:///{dbpath}"
-    )
-    engine = create_engine(connstring, echo=False)
-    metadata = MetaData()
-    metadata.reflect(
-        bind=engine,
-        only=[
-            "fact_income_permille",
-            "fact_income_permille_dept",
-            "fact_income_permille_dept_zone",
-        ],
-    )
-    (
-        income_table,
-        income_dept_table,
-        income_dept_zone_table,
-    ) = get_tables(metadata=metadata, engine=engine)
-    (
-        quantile_below,
-        quantile_above,
-        dept_quantile_below,
-        dept_quantile_above,
-        dept_zone_quantile_below,
-        dept_zone_quantile_above,
-    ) = get_income_quantiles(
-        income=int(income),
-        department=department,
-        zone=int(zone),
-        income_table=income_table,
-        income_dept_table=income_dept_table,
-        income_dept_zone_table=income_dept_zone_table,
-        engine=engine,
-    )
+    income_data, income_dept_data, income_dept_zone_data = get_files()
+    quantile_below = get_quantile(income_data, int(income), above=False)
+    quantile_above = get_quantile(income_data, int(income), above=True)
+    dept_quantile_below = get_quantile(income_dept_data, int(income), department, above=False)
+    dept_quantile_above = get_quantile(income_dept_data, int(income), department, above=True)
+    dept_zone_quantile_below = get_quantile(income_dept_zone_data, int(income), department, int(zone), above=False)
+    dept_zone_quantile_above = get_quantile(income_dept_zone_data, int(income), department, int(zone), above=True)
     result = {
         "quantileBelow": quantile_below,
         "quantileAbove": quantile_above,
