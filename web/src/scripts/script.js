@@ -209,39 +209,39 @@ function prettifyResults(
     quantiles
 ) {
     const departmentNames = {
-        "05": lang === "en" ? "Antioquia" : "Antioquia",
-        "08": lang === "en" ? "Atlántico" : "Atlántico",
-        "11": lang === "en" ? "Bogotá, D.C." : "Bogotá, D.C.",
-        "13": lang === "en" ? "Bolívar" : "Bolívar",
-        "15": lang === "en" ? "Boyacá" : "Boyacá",
-        "17": lang === "en" ? "Caldas" : "Caldas",
-        "18": lang === "en" ? "Caquetá" : "Caquetá",
-        "19": lang === "en" ? "Cauca" : "Cauca",
-        "20": lang === "en" ? "Cesar" : "Cesar",
-        "23": lang === "en" ? "Córdoba" : "Córdoba",
-        "25": lang === "en" ? "Cundinamarca" : "Cundinamarca",
-        "27": lang === "en" ? "Chocó" : "Chocó",
-        "41": lang === "en" ? "Huila" : "Huila",
-        "44": lang === "en" ? "La Guajira" : "La Guajira",
-        "47": lang === "en" ? "Magdalena" : "Magdalena",
-        "50": lang === "en" ? "Meta" : "Meta",
-        "52": lang === "en" ? "Nariño" : "Nariño",
-        "54": lang === "en" ? "Norte de Santander" : "Norte de Santander",
-        "63": lang === "en" ? "Quindío" : "Quindío",
-        "66": lang === "en" ? "Risaralda" : "Risaralda",
-        "68": lang === "en" ? "Santander" : "Santander",
-        "70": lang === "en" ? "Sucre" : "Sucre",
-        "73": lang === "en" ? "Tolima" : "Tolima",
-        "76": lang === "en" ? "Valle del Cauca" : "Valle del Cauca",
-        "81": lang === "en" ? "Arauca" : "Arauca",
-        "85": lang === "en" ? "Casanare" : "Casanare",
-        "86": lang === "en" ? "Putumayo" : "Putumayo",
+        "05": "Antioquia",
+        "08": "Atlántico",
+        "11": "Bogotá, D.C.",
+        "13": "Bolívar",
+        "15": "Boyacá",
+        "17": "Caldas",
+        "18": "Caquetá",
+        "19": "Cauca",
+        "20": "Cesar",
+        "23": "Córdoba",
+        "25": "Cundinamarca",
+        "27": "Chocó",
+        "41": "Huila",
+        "44": "La Guajira",
+        "47": "Magdalena",
+        "50": "Meta",
+        "52": "Nariño",
+        "54": "Norte de Santander",
+        "63": "Quindío",
+        "66": "Risaralda",
+        "68": "Santander",
+        "70": "Sucre",
+        "73": "Tolima",
+        "76": "Valle del Cauca",
+        "81": "Arauca",
+        "85": "Casanare",
+        "86": "Putumayo",
         "88": lang === "en" ? "Archipelago of San Andrés, Providencia and Santa Catalina" : "Archipiélago de San Andrés, Providencia y Santa Catalina",
-        "91": lang === "en" ? "Amazonas" : "Amazonas",
-        "94": lang === "en" ? "Guainía" : "Guainía",
-        "95": lang === "en" ? "Guaviare" : "Guaviare",
-        "97": lang === "en" ? "Vaupés" : "Vaupés",
-        "99": lang === "en" ? "Vichada" : "Vichada"
+        "91": "Amazonas",
+        "94": "Guainía",
+        "95": "Guaviare",
+        "97": "Vaupés",
+        "99": "Vichada"
     };
 
     let quantileBelow = quantiles.quantileBelow;
@@ -313,19 +313,19 @@ function prettifyResults(
         if (!singleQuantile) {
             result.nationalIncome2 = `El ${((quantileAbove - quantileBelow - 1) / 10).toFixed(1)}% de la población en Colombia tiene exactamente tus mismos ingresos (ni más, ni menos).`;
         }
-        result.nationalIncome3 = `En un salón con 1000 residentes de Colombia tendrías más ingresos que ${Math.round(quantileBelow)} de ellas.`;
+        result.nationalIncome3 = `En un salón con 1000 residentes de Colombia tendrías más ingresos que ${Math.round(quantileBelow)} de ellos.`;
         // Department income quantiles
         result.departmentIncome1 = `Estás en el ${((1000 - deptQuantileBelow) / 10).toFixed(1)}% más alto de ingresos en ${departmentName}.`;
         if (!singleQuantileDept) {
             result.departmentIncome2 = `El ${((deptQuantileAbove - deptQuantileBelow - 1) / 10).toFixed(1)}% de la población en ${departmentName} tiene exactamente tus mismos ingresos (ni más, ni menos).`;
         }
-        result.departmentIncome3 = `En un salón con 1000 residentes de ${departmentName} tendrías más ingresos que ${Math.round(deptQuantileBelow)} de ellas.`;
+        result.departmentIncome3 = `En un salón con 1000 residentes de ${departmentName} tendrías más ingresos que ${Math.round(deptQuantileBelow)} de ellos.`;
         // Department and zone income quantiles
         result.departmentZoneIncome1 = `Estás en el ${((1000 - deptZoneQuantileBelow) / 10).toFixed(1)}% más alto de ingresos en la zona ${zoneStr} de ${departmentName}.`;
         if (!singleQuantileDeptZone) {
             result.departmentZoneIncome2 = `El ${((deptZoneQuantileAbove - deptZoneQuantileBelow - 1) / 10).toFixed(1)}% de la población en la zona ${zoneStr} de ${departmentName} tiene exactamente tus mismos ingresos (ni más, ni menos).`;
         }
-        result.departmentZoneIncome3 = `En un salón con 1000 residentes de la zona ${zoneStr} de ${departmentName} tendrías más ingresos que ${Math.round(deptZoneQuantileBelow)} de ellas.`;
+        result.departmentZoneIncome3 = `En un salón con 1000 residentes de la zona ${zoneStr} de ${departmentName} tendrías más ingresos que ${Math.round(deptZoneQuantileBelow)} de ellos.`;
     }
 
     return result;
@@ -362,9 +362,5 @@ function displayResults(income, department, zone, response) {
 function displayError() {
     hideLoading();
     const resultDiv = document.getElementById("result-container");
-    if (lang === "en") {
-        resultDiv.innerHTML = "An error occurred. Please try again.";
-    } else {
-        resultDiv.innerHTML = "Ocurrió un error. Por favor, intenta nuevamente.";
-    }
+    resultDiv.innerHTML = "Ocurrió un error. Por favor, intenta nuevamente.";
 }
