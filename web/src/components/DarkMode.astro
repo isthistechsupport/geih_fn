@@ -1,13 +1,19 @@
 ---
-import { Image } from "@astrojs/image/components";
+import { Image } from 'astro:assets';
+import sun from '../images/sun.svg';
+import moon from '../images/moon.svg';
 ---
 
 <div class="theme-container" id="dark-mode-toggle">
-    <Image src="/images/sun.svg" class="feather feather-sun" alt="Light Mode" width={28} height={28} fit={"cover"} format={"svg"} />
-    <Image src="/images/moon.svg" class="feather feather-moon" alt="Dark Mode" width={28} height={28} fit={"cover"} format={"svg"} />
+    <Image src={sun} class="feather feather-sun" alt="Light Mode" width={28} height={28} format={"svg"} />
+    <Image src={moon} class="feather feather-moon" alt="Dark Mode" width={28} height={28} format={"svg"} />
 </div>
 
 <style>
+    .feather {
+        object-fit: cover;
+    }
+
     .feather-sun {
         display: block;
     }
